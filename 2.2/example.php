@@ -1,0 +1,51 @@
+<?php
+
+header("Content-type: text/plain");
+
+if (isset($_POST['post'])) {
+
+    echo "hidden: ".$_POST['hidden'];
+
+    if(strlen($_POST['text'])>0){
+        echo "\ntext: ".$_POST['text'];
+    }
+
+    if(strlen($_POST['text_area'])>0){
+        echo "\ntextarea: ".$_POST['text_area'];
+
+    }
+
+    if(isset($_POST['cbox'])){
+        echo "\ncheckbox: ".$_POST['cbox'];
+    }
+
+    if(isset($_POST['radio_button'])){
+        echo "\nradio: ".$_POST['radio_button'];
+    }
+    
+    echo "\nselect: ".$_POST['select']."\nsubmit: ".$_POST['post'];
+
+}else if(isset($_GET['get'])){
+
+    echo "hidden: ".$_GET['hidden'];
+
+    if(strlen($_GET['text'])>0){
+        echo "\ntext: ".$_GET['text'];
+    }
+
+    if(strlen($_GET['text_area'])>0){
+        echo "\ntextarea: ".$_GET['text_area'];
+
+    }
+
+    if(isset($_GET['cbox'])){
+        echo "\ncheckbox: ".$_GET['cbox'];
+    }
+    
+    if(isset($_GET['radio_button'])){
+        echo "\nradio: ".$_GET['radio_button'];
+    }
+    
+    echo "\nselect: ".$_GET['select']."\nsubmit: ".$_GET['get'];
+}
+

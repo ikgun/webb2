@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=iso-8859-1" />
+    <title>
+        Exempel
+    </title>
+</head>
+
+<body>
+
+    <h1>post form</h1>
+
+    <form method="post" action="example.php">
+        <div>
+            <input type="hidden" name="hidden" value="I am hidden!" />
+        </div>
+        <p>
+            <input type="text" name="text" value="ABC" />
+        </p>
+        <p>
+            <textarea name="text_area" rows="10" cols="10">DEF</textarea>
+        </p>
+        <p>
+            <input type="checkbox" name="cbox" />
+        </p>
+        <p>
+            <input type="radio" value="v1" name="radio_button" /> 
+            <input type="radio" value="v2" name="radio_button" />
+        </p>
+        <p>
+            <select name="select">
+                <option value="option1">
+                    post option 1
+                </option>
+                <option value="option2">
+                    post option 2
+                </option>
+            </select>
+        </p>
+        <p>
+            <input type="submit" value="Post" name="post" />
+        </p>
+    </form>
+
+    <h1>get form</h1>
+    
+    <form method="get" action="example.php">
+        <div>
+            <input type="hidden" name="hidden" value="I am hidden!" />
+        </div>
+        <p>
+            <input type="text" name="text" value="ABC" />
+        </p>
+        <p>
+            <textarea name="text_area" rows="10" cols="10">DEF</textarea>
+        </p>
+        <p>
+            <input type="checkbox" name="cbox" value="ON" checked="checked" />
+        </p>
+        <p>
+            <input type="radio" value="v1" name="radio_button" checked="checked" /> 
+            <input type="radio" value="v2" name="radio_button" />
+        </p>
+        <p>
+            <select name="select">
+                <option value="option1">
+                    get option 1
+                </option>
+                <option value="option2">
+                    get option 2
+                </option>
+            </select>
+        </p>
+        <p>
+            <input type="submit" value="Get" name="get" />
+        </p>
+    </form>
+</body>
+
+</html>
