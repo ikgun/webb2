@@ -11,8 +11,6 @@ $infoStore->insert($_SERVER);
 
 header("Content-type: text/plain");
 
-// print_r($infoStore->findAll());
-
 foreach ($infoStore->findAll() as $value) {
 
     foreach ($value as $key => $value2) {
