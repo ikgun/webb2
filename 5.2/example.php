@@ -1,5 +1,5 @@
 <?php
-
+ header('Content-type: text/plain');
 if (isset($_POST['push_button'])) {
 
     require 'PHPMailerAutoload.php';
@@ -29,8 +29,17 @@ if (isset($_POST['push_button'])) {
     $mail->addBCC($bcc);
 
     //Attachments
-    $mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
-    $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
+    if(is_uploaded_file($_FILES['file1']['tmp_name'])){
+
+        echo "Lägger till fil 1!\n";
+        $mail->addAttachment($_FILES["file1"]["name"]);  //Add attachments
+    }
+
+    if(is_uploaded_file($_FILES['file2']['tmp_name'])){
+
+        echo "Lägger till fil 2!\n";
+        $mail->addAttachment($_FILES["file2"]["name"]);   //Add attachments
+    }
 
     //Content
     $mail->isHTML(true);                                  //Set email format to HTML
@@ -39,5 +48,5 @@ if (isset($_POST['push_button'])) {
 
     $mail->send();
     
-    echo "Message has been sent <br> Observera! Detta meddelande är sänt från ett formulär på Internet och avsändaren kan vara felaktig!";
+    echo "Message has been sent \nObservera! Detta meddelande är sänt från ett formulär på Internet och avsändaren kan vara felaktig!";
 }
