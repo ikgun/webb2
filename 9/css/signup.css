@@ -23,7 +23,6 @@
    border-radius: 5px;
    box-shadow: 0 5px 10px rgba(0,0,0,.1);
    background: #fff;
-   text-align: center;
    width: 500px;
 }
 
@@ -32,6 +31,7 @@
    text-transform: uppercase;
    margin-bottom: 10px;
    color:#333;
+   text-align: center;
 }
 
 .form-container form input,
@@ -65,6 +65,7 @@
    margin-top: 10px;
    font-size: 20px;
    color:#333;
+   text-align: center;
 }
 
 .form-container form p a{
@@ -74,12 +75,13 @@
 
 .form-container form .error-msg{
    margin:10px 0;
-   display: block;
-   background: crimson;
-   color:#fff;
+   display: none;
+   background: #98c0fc;
+   color:#0B5ED7;
    border-radius: 5px;
    font-size: 20px;
    padding:10px;
+   
 }
 
 #bth{
@@ -90,4 +92,9 @@
 
 #error{
    display: none;
+   text-align: center;
+}
+
+label.error{
+   color: crimson;
 }

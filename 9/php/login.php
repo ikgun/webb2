@@ -21,8 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $_SESSION['user_id'] = $row['user_id'];
       $_SESSION['user_name'] = $row['name'];
       $_SESSION['email'] = $row['email'];
-      echo $_SESSION['user_name'];
-      header('Location: ../html/welcome.html');
+      
+      echo 'welcome.html';
 
    } else {
       echo 'Invalid email or password';

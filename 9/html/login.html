@@ -15,14 +15,19 @@
 <body>
     <div class="form-container">
         <form id="login-form">
-           <h3>login now</h3>
-           <input type="email" name="email" required placeholder="Email">
-           <input type="password" name="password" required placeholder="Password">
-           <input type="submit" name="submit" value="login" class="form-btn" id="login-btn">
-           <p>Don't have an account? <a href="signup.html">Sign-up</a></p>
-           <p id="bth"><a href="welcome.html">Back to homepage</a></p>
-           <p id="error"></p>
+            <h3>login now</h3>
+            <input type="email" name="email" required placeholder="Email">
+            <input type="password" name="password" required placeholder="Password" minlength="6">
+            <input type="submit" name="submit" value="login" class="form-btn" id="login-btn">
+            <p>Don't have an account? <a href="signup.html">Sign-up</a></p>
+            <p id="bth"><a href="welcome.html">Back to homepage</a></p>
+            <p id="error-msg"></p>
         </form>
-     </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script src="../js/login.js"></script>
 </body>
+
 </html>
