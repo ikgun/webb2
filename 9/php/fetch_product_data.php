@@ -18,10 +18,13 @@ if (mysqli_num_rows($result) > 0) {
         );
 
         $productArray[] = $productInfo;
-
+        
     }
+    echo json_encode($productArray);
+}else{
+    echo "No product in database";
 }
 
-echo json_encode($productArray);
+
 
 

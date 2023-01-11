@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
+
+* {
+    font-family: 'Poppins', sans-serif;
+    text-decoration: none;
+}
+
+#welcome-user {
+    text-transform: capitalize;
+}
+
+#name-error-msg {
+    margin: 10px 0;
+    display: none;
+    background: #98c0fc;
+    color: #0B5ED7;
+    border-radius: 5px;
+    font-size: 20px;
+    padding: 10px;
+    text-align: center;
+}
+
+#email-error-msg {
+    margin: 10px 0;
+    display: none;
+    background: #98c0fc;
+    color: #0B5ED7;
+    border-radius: 5px;
+    font-size: 20px;
+    padding: 10px;
+    text-align: center;
+}
+
+label.error {
+    color: crimson;
+    display: block;
+}
+
+#change-name-form{
+    display: none;
+    border: 1px solid lightgray;
+    padding: 10px;
+}
+
+#change-email-form{
+    display: none;
+    border: 1px solid lightgray;
+    padding: 10px;
+}
