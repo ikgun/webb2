@@ -21,7 +21,6 @@ logoutBtn.addEventListener('click', function(){
     window.location.href = '../php/logout.php';
 });
 
-
 accountBtn.addEventListener('click', function(){
     window.location.href = '../html/account.html';
 });
@@ -35,7 +34,7 @@ $(window).on('load', function () {
 
             var welcomeMsg = document.getElementById('welcome-user');
 
-            if(response !== 'No user logged in'){
+            if(response !== 'No user in database' && response !== 'No user logged in'){
 
                 var response = JSON.parse(response);
                 welcomeMsg.textContent = 'Welcome, ' + response[0].userName + '!';

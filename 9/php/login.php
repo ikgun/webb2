@@ -18,16 +18,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
       $row = mysqli_fetch_array($result);
 
-      $_SESSION['user_id'] = $row['user_id'];
+      $userID = $row['user_id'];
+
+      $_SESSION['user_id'] = $userID;
       $_SESSION['user_name'] = $row['name'];
       $_SESSION['email'] = $row['email'];
-      
-      echo 'welcome.html';
 
+      $select = " SELECT * FROM sessions WHERE user_id = '$userID' ";
+      $result = mysqli_query($dbc, $select);
+      $row = mysqli_fetch_assoc($result);
+      if (!empty($row)) {
+         $_SESSION['session_id'] = $row['session_id'];
+      } else {
+         echo "Error: User does not have session ID";
+      }
+
+      echo 'welcome.html';
    } else {
       echo 'Invalid email or password';
    }
-
 };
-
-?>

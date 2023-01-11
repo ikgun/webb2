@@ -1,3 +1,29 @@
+var loginBtn = document.getElementById('login-btn');
+var signupBtn = document.getElementById('signup-btn');
+var cartBtn = document.getElementById('cart-btn');
+var logoutBtn = document.getElementById('logout-btn');
+
+var accountBtn = document.getElementById('account-btn');
+
+loginBtn.addEventListener('click', function(){
+    window.location.href = '../html/login.html';
+});
+
+signupBtn.addEventListener('click', function(){
+    window.location.href = '../html/signup.html';
+});
+
+cartBtn.addEventListener('click', function(){
+    window.location.href = '../html/cart.html';
+});
+
+logoutBtn.addEventListener('click', function(){
+    window.location.href = '../php/logout.php';
+});
+
+accountBtn.addEventListener('click', function(){
+    window.location.href = '../html/account.html';
+});
 
 $(window).on('load', function () {
 
@@ -46,6 +72,8 @@ $(window).on('load', function () {
                 hiddenPrice.value = element.productPrice;
 
                 var productQty = document.createElement('input');
+                productQty.style.padding = '5px 0px 5px 10px'
+                productQty.name = 'product-qty';
                 productQty.type = 'number';
                 productQty.value = '1';
                 productQty.className = 'mb-2';
@@ -60,13 +88,13 @@ $(window).on('load', function () {
 
                 addToCartBtn.addEventListener('click', function (e) {
                     e.preventDefault();
-                    $ajax({
-                        url: '../php/shop.php?product-id=' + element.productID,
+                    $.ajax({
+                        url: '../php/add_to_cart.php?product-id=' + element.productID,
                         type: 'post',
                         data: $('#form' + element.productID).serialize(),
                         success: function (response) {
 
-                            window.alert(response);
+                           window.alert(response);
 
                         },
                         error: function (response) {
