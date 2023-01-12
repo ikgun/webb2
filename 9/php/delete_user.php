@@ -5,24 +5,46 @@ include('functions.php');
 
 session_start();
 
-if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_SESSION['user_id'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_SESSION['user_id'])) {
 
     $userID = $_SESSION['user_id'];
+    $sessionID = findUserSession($dbc, $userID);
 
-    $select = " SELECT * FROM users WHERE user_id = '$userID' ";
+    $select = " SELECT * FROM cart_items WHERE session_id = '$sessionID' ";
 
-    $result = mysqli_query($dbc, $select);
+    if (mysqli_num_rows($result = mysqli_query($dbc, $select)) > 0) {
 
-    if (mysqli_num_rows($result) > 0) {
+        $delete = "DELETE FROM cart_items WHERE session_id = '$sessionID'";
 
-        $delete = "DELETE FROM users WHERE user_id = '$userID'";
+        mysqli_query($dbc, $delete);
+    }
 
-        if (mysqli_query($dbc, $delete)) {
-            echo 'Account deleted successfully, you\'re being logged out';
+    $delete = "DELETE FROM sessions WHERE session_id = '$sessionID'";
+
+    mysqli_query($dbc, $delete);
+
+    if (mysqli_affected_rows($dbc) > 0) {
+
+        $select = " SELECT * FROM users WHERE user_id = '$userID' ";
+
+        if (mysqli_num_rows($result = mysqli_query($dbc, $select)) > 0) {
+
+            $delete = "DELETE FROM users WHERE user_id = '$userID'";
+
+            mysqli_query($dbc, $delete);
+
+            if (mysqli_affected_rows($dbc) > 0) {
+                echo 'Account deleted successfully, you\'re being logged out';
+            } else {
+                echo 'User account could not be deleted';
+            }
+            
         } else {
-            echo 'Error deleting account';
+            echo 'No such user';
         }
+
     } else {
-        echo 'No such user';
+
+        echo "User session could not be deleted";
     }
 };

@@ -31,7 +31,7 @@ deleteBtn.addEventListener('click', function () {
     if (confirm('Do you really want to delete your account?')) {
         $.ajax({
             url: "../php/delete_user.php",
-            type: 'get',
+            type: 'post',
             success: function (response) {
 
                 window.alert(response);
