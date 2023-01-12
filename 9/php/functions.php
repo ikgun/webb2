@@ -10,9 +10,21 @@ function validate($data)
     return $data;
 }
 
+function calculateTotal($dbc, $productID, $productQty){
+    $select = "SELECT * FROM products WHERE product_id = '$productID' ";
+    $result = mysqli_query($dbc, $select);
+    $row = mysqli_fetch_assoc($result);
+    $productPrice = $row['price'];
+    $itemTotal = $productPrice * $productQty;
+    return $itemTotal;
+}
+
 function addNewItemToCart($dbc, $sessionID, $productID, $productQty)
 {
-    $insert = "INSERT INTO cart_items (shopping_id, session_id, product_id, quantity) VALUES (NULL,'$sessionID','$productID','$productQty')";
+
+    $itemTotal = calculateTotal($dbc, $productID, $productQty);
+    
+    $insert = "INSERT INTO cart_items (shopping_id, session_id, product_id, quantity, item_total) VALUES (NULL,'$sessionID','$productID','$productQty', $itemTotal)";
 
     if (mysqli_query($dbc, $insert)) {
         echo "Item(s) added to cart!";
@@ -39,8 +51,9 @@ function findUserSession($dbc, $userID)
 function increaseQty($dbc, $row, $productQty, $sessionID, $productID)
 {
     $newQty = $row['quantity'] + $productQty;
+    $newTotal = calculateTotal($dbc, $productID, $newQty);
 
-    $update = "UPDATE cart_items SET quantity = '$newQty' WHERE session_id = '$sessionID' && product_id = '$productID'";
+    $update = "UPDATE cart_items SET quantity = '$newQty', item_total = '$newTotal' WHERE session_id = '$sessionID' && product_id = '$productID'";
 
     if (mysqli_query($dbc, $update)) {
         echo "Item(s) added to cart!";
