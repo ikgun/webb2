@@ -27,9 +27,9 @@ function addNewItemToCart($dbc, $sessionID, $productID, $productQty)
     $insert = "INSERT INTO cart_items (shopping_id, session_id, product_id, quantity, item_total) VALUES (NULL,'$sessionID','$productID','$productQty', $itemTotal)";
 
     if (mysqli_query($dbc, $insert)) {
-        echo "Item(s) added to cart!";
+        echo "Added!";
     } else {
-        echo "Error adding item(s) to cart!";
+        echo "Error!";
     }
 }
 
@@ -56,9 +56,9 @@ function increaseQty($dbc, $row, $productQty, $sessionID, $productID)
     $update = "UPDATE cart_items SET quantity = '$newQty', item_total = '$newTotal' WHERE session_id = '$sessionID' && product_id = '$productID'";
 
     if (mysqli_query($dbc, $update)) {
-        echo "Item(s) added to cart!";
+        echo "Added!";
     } else {
-        echo "Error adding item(s) to cart!";
+        echo "Error!";
     }
 }
 

@@ -36,6 +36,8 @@ $(window).on('load', function () {
 
                 var response = JSON.parse(response);
 
+                console.log(response);
+
                 for (var i = 0; i < response.allProductNames.length; i++) {
 
                     var tr = document.createElement('tr');
@@ -43,6 +45,10 @@ $(window).on('load', function () {
                     var thName = document.createElement('th');
                     thName.textContent = response.allProductNames[i];
                     thName.className = "text-start";
+
+                    var tdID = document.createElement('td');
+                    tdID.textContent = response.allProductIDs[i];
+                    tdID.style.display = 'none';
 
                     var tdPrice = document.createElement('td');
                     tdPrice.textContent = "$" + response.allProductPrices[i];
@@ -55,21 +61,24 @@ $(window).on('load', function () {
 
                     var tdRemoveBtn = document.createElement('td');
                     var removeBtn = document.createElement('button');
-                    removeBtn.className = "btn btn-primary";
+                    removeBtn.className = "btn btn-warning";
+                    removeBtn.id = response.allProductIDs[i];
                     removeBtn.textContent = "Remove";
+                    removeBtn.style.fontWeight = 'bold';
                     tdRemoveBtn.appendChild(removeBtn);
-                    
-                    removeBtn.addEventListener('click', function () {
-                    
+
+                    removeBtn.addEventListener('click', function (e) {
+
                         $.ajax({
-                            url: "../php/remove_item.php?product_id=" + removeBtn.id,
+                            url: "../php/remove_item.php?product_id=" + e.target.id,
                             type: 'post',
                             success: function (response) {
-                                
-                                var errorMsg = $('#error-msg');
-                                errorMsg.text(response);
-                                errorMsg.css('display', 'block');
 
+                                $(e.target).removeClass('btn-warning');
+                                $(e.target).addClass('btn-danger');
+                                e.target.textContent = response;
+                                e.target.style.cursor = 'not-allowed'
+                                
                             },
                             error: function (response) {
 
@@ -93,10 +102,12 @@ $(window).on('load', function () {
 
 
             } else {
-                console.log(response);
+                document.getElementById('table').style.display = 'none';
+                document.getElementById('continue').style.display = 'none';
+                var msg = $('#msg');
+                msg.text(response);
+                msg.css('display', 'block');
             }
-
-
 
         },
         error: function (response) {

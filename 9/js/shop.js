@@ -87,6 +87,7 @@ $(window).on('load', function () {
                 addToCartBtn.value = 'Add to cart';
 
                 addToCartBtn.addEventListener('click', function (e) {
+                    
                     e.preventDefault();
                     $.ajax({
                         url: '../php/add_to_cart.php?product-id=' + element.productID,
@@ -94,8 +95,15 @@ $(window).on('load', function () {
                         data: $('#form' + element.productID).serialize(),
                         success: function (response) {
 
-                           window.alert(response);
-
+                            $(e.target).removeClass('btn-warning');
+                            $(e.target).addClass('btn-success');
+                            e.target.value = response;
+                            setTimeout(function() {
+                                $(e.target).addClass('btn-warning');
+                                $(e.target).removeClass('btn-success');
+                                e.target.value='Add to cart';
+                            }, 1000);
+                            
                         },
                         error: function (response) {
                             console.log('Error sending data = ' + response.responseText);

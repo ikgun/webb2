@@ -36,38 +36,41 @@
         </header>
     </div>
 
-    <div class="container d-flex justify-content-center" id="cart-container">
+    <main>
+        <div class="container d-flex flex-row justify-content-center" id="cart-container">
 
-        <div class="col-md-8 text-center">
-            <h4 class="d-flex justify-content-center mb-3">
-                <span class="text-primary">Your cart</span>
-                <span class="badge bg-primary rounded-pill ms-2" id="itemCount"></span>
-            </h4>
-            <table class="table table-striped shadow">
-                <thead>
-                    <tr>
-                        <th class="text-start">Product name</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Item total</th>
-                        <td></td>
-                    </tr>
-                </thead>
-                <tbody id="tbody">
-
-                    <tr id="totals-row">
-                        <th class="text-start">Total (USD)</th>
-                        <td></td>
-                        <td></td>
-                        <th id="cartTotal"></th>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-            <button class="w-100 btn btn-primary btn-lg mt-2" type="submit">Continue to checkout</button>
-            <p id="error-msg"></p>
+            <div class="col-md-8 text-center">
+                <h4 class="d-flex justify-content-center mb-3">
+                    <span class="text-primary">Your cart</span>
+                    <span class="badge bg-primary rounded-pill ms-2" id="itemCount">0</span>
+                </h4>
+                <table class="table table-striped shadow" id="table">
+                    <thead>
+                        <tr>
+                            <th class="text-start">Product name</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Item total</th>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+    
+                        <tr id="totals-row">
+                            <th class="text-start">Total (USD)</th>
+                            <td></td>
+                            <td></td>
+                            <th id="cartTotal"></th>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="w-100 btn btn-primary btn-lg mt-2" type="submit" id="continue">Continue to checkout</button>
+                <p id="msg"></p>
+            </div>
         </div>
-    </div>
+    </main>
+    
 
 
     <div class="container ">
