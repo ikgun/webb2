@@ -10,13 +10,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
    $email = validate($_POST['email']);
    $password = md5(validate($_POST['password']));
 
-   $select = " SELECT * FROM users WHERE email = '$email' && password = '$password' ";
-
-   $result = mysqli_query($dbc, $select);
+   $select = " SELECT * FROM users WHERE email = ? && password = ? ";
+   $stmt = $dbc->prepare($select); 
+   $stmt->bind_param("ss", $email, $password);
+   $stmt->execute();
+   $result = $stmt->get_result();
 
    if (mysqli_num_rows($result) > 0) {
 
-      $row = mysqli_fetch_array($result);
+      $row = mysqli_fetch_assoc($result);
 
       $userID = $row['user_id'];
 
@@ -27,14 +29,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $select = " SELECT * FROM sessions WHERE user_id = '$userID' ";
       $result = mysqli_query($dbc, $select);
       $row = mysqli_fetch_assoc($result);
+
       if (!empty($row)) {
+
          $_SESSION['session_id'] = $row['session_id'];
+
       } else {
+
          echo "Error: User does not have session ID";
+
       }
 
       echo 'welcome.html';
+
    } else {
+
       echo 'Invalid email or password';
+
    }
+   
 };

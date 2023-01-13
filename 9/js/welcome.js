@@ -5,19 +5,19 @@ $(window).on('load', function () {
     $.ajax({
         url: "../php/fetch_user_data.php",
         type: 'get',
-        success: function (response) {
+        success: function (data) {
 
             var welcomeMsg = document.getElementById('welcome-user');
 
-            if (response !== 'No user in database' && response !== 'No user logged in') {
+            if (data !== 'No user in database' && data !== 'No user logged in') {
 
-                $('#header').append(headerLoggedIn);
-                var response = JSON.parse(response);
+                $('header').append(headerLoggedIn);
+                var response = JSON.parse(data);
                 welcomeMsg.textContent = 'Welcome, ' + response[0].userName + '!';
 
             } else {
 
-                $('#header').append(headerLoggedOut);
+                $('header').append(headerLoggedOut);
                 welcomeMsg.textContent = 'Welcome!';
 
             }

@@ -11,14 +11,14 @@ $(window).on('load', function () {
 
             if (response !== 'No user logged in') {
 
-                $('#header').append(headerLoggedIn);
-                var response = JSON.parse(response);
-                welcomeMsg.textContent = 'Hi, ' + response[0].userName + '!';
-                document.getElementById('user-email').textContent = response[0].userEmail;
+                $('header').append(headerLoggedIn);
+                var res = JSON.parse(response);
+                welcomeMsg.textContent = 'Hi, ' + res[0].userName + '!';
+                document.getElementById('user-email').textContent = res[0].userEmail;
 
             } else {
 
-                $('#header').append(headerLoggedOut);
+                $('header').append(headerLoggedOut);
                 welcomeMsg.textContent = 'Hi!';
 
             }

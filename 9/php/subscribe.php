@@ -31,6 +31,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['to'])) {
     $mail->send();
 
     echo "You have subscribed to our mailing list! Hurra!";
+
 }else{
+
     echo "Request error";
+    
 }

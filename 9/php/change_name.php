@@ -16,16 +16,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_SESSION['user_id'])) {
 
    if (mysqli_num_rows($result) > 0) {
 
-      $update = "UPDATE users SET name = '$newName' WHERE user_id = '$userID'";
+      $update = "UPDATE users SET name = ? WHERE user_id = '$userID'";
+      $stmt = $dbc->prepare($update);
+      $stmt->bind_param("s", $newName);
+      $stmt->execute();
 
-      if(mysqli_query($dbc, $update)){
-        echo 'Name successfully changed';
-      }else{
-        echo 'Error changing name';
+      if ($dbc->affected_rows > 0) {
+         echo 'Name successfully changed';
+      } else {
+         echo 'Error changing name';
       }
-      
-   } else {
-      echo 'No such user';
-   }
 
+   } else {
+
+      echo 'No such user';
+
+   }
+   
 };

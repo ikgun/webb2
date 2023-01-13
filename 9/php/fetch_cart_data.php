@@ -20,15 +20,19 @@ if(isset($_SESSION['session_id'])){
             $allProductIDs[] = $row['product_id'];
             $allProductQtys[] = $row['quantity'];
             $allProductTotals[] = $row['item_total'];
+
         }
 
         foreach ($allProductIDs as $value) {
+
             $select = "SELECT * FROM products WHERE product_id = '$value'";
             $result = mysqli_query($dbc, $select);
+            
             while($row = mysqli_fetch_assoc($result)){
                 $allProductNames[] = $row['name'];
                 $allProductPrices[] = number_format($row['price'], 2);
             }
+
         }
 
         $cartTotal = 0;

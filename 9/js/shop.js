@@ -9,11 +9,11 @@ $(window).on('load', function () {
 
             if (response !== 'No user logged in') {
 
-                $('#header').append(headerLoggedIn);
+                $('header').append(headerLoggedIn);
                 
             } else {
                 
-                $('#header').append(headerLoggedOut);
+                $('header').append(headerLoggedOut);
             }
 
         },
@@ -73,7 +73,7 @@ $(window).on('load', function () {
                 hiddenPrice.value = element.productPrice;
 
                 var productQty = document.createElement('input');
-                productQty.style.padding = '5px 0px 5px 10px'
+                productQty.style.padding = '5px 0px 5px 10px';
                 productQty.name = 'product-qty';
                 productQty.type = 'number';
                 productQty.min = 1;
@@ -110,7 +110,7 @@ $(window).on('load', function () {
                         error: function (response) {
                             console.log('Error sending data = ' + response.responseText);
                         }
-                    })
+                    });
 
                 });
 
@@ -169,9 +169,3 @@ $('#submitBtn').click(function (e) {
 
 
 });
-
-
-
-
-
-

@@ -1,8 +1,8 @@
 function header() {
 
-    var header = document.createElement('header');
-    header.className = "d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom";
-
+    var div = document.createElement('div');
+    div.className = "d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom";
+    
     var iconLink = document.createElement('a');
     iconLink.href = "../html/welcome.html";
 
@@ -15,7 +15,7 @@ function header() {
 
     iconFig.appendChild(iconImg);
     iconLink.appendChild(iconFig);
-    header.appendChild(iconLink);
+    div.appendChild(iconLink);
 
     var nav = document.createElement('ul');
     nav.className = "nav col-12 col-md-auto mb-2 justify-content-center mb-md-0";
@@ -36,9 +36,9 @@ function header() {
     navItemShop.appendChild(navLinkShop);
     nav.appendChild(navItemShop);
 
-    header.appendChild(nav);
+    div.appendChild(nav);
 
-    return header;
+    return div;
 
 }
 
@@ -116,21 +116,21 @@ function addToCartBtn() {
     btn.addEventListener('mouseover', function () {
         span2.classList.remove('bg-primary');
         span2.classList.add('bg-light');
-        span2.style.color = 'black'
-    })
+        span2.style.color = 'black';
+    });
     btn.addEventListener('mouseout', function () {
         span2.classList.add('bg-primary');
         span2.classList.remove('bg-light');
-        span2.style.color = 'white'
+        span2.style.color = 'white';
 
-    })
+    });
     $.ajax({
         url: "../php/fetch_cart_data.php",
         type: 'get',
-        success: function (response) {
-            if (response !== 'Your cart is empty!') {
+        success: function (data) {
+            if (data !== 'Your cart is empty!') {
 
-                var response = JSON.parse(response);
+                var response = JSON.parse(data);
                 for (var i = 0; i < response.allProductNames.length; i++) {
                     span2.textContent = response.itemCount;
                 }
@@ -139,7 +139,7 @@ function addToCartBtn() {
             }
         }
     });
-    btn.appendChild(span1)
+    btn.appendChild(span1);
     btn.appendChild(span2);
     return btn;
 }

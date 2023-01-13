@@ -34,17 +34,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_SESSION['user_id'])) {
             mysqli_query($dbc, $delete);
 
             if (mysqli_affected_rows($dbc) > 0) {
+
                 echo 'Account deleted successfully, you\'re being logged out';
+
             } else {
+
                 echo 'User account could not be deleted';
+
             }
             
         } else {
+
             echo 'No such user';
+
         }
 
     } else {
 
         echo "User session could not be deleted";
+        
     }
 };

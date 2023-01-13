@@ -9,11 +9,11 @@ $(window).on('load', function () {
 
             if (response !== 'No user logged in') {
 
-                $('#header').append(headerLoggedIn);
+                $('header').append(headerLoggedIn);
 
             } else {
 
-                $('#header').append(headerLoggedOut);
+                $('header').append(headerLoggedOut);
             }
 
         },
@@ -31,13 +31,11 @@ $(window).on('load', function () {
     $.ajax({
         url: "../php/fetch_cart_data.php",
         type: 'get',
-        success: function (response) {
+        success: function (data) {
 
-            if (response !== 'Your cart is empty!') {
+            if (data !== 'Your cart is empty!') {
 
-                var response = JSON.parse(response);
-
-                console.log(response);
+                var response = JSON.parse(data);
 
                 for (var i = 0; i < response.allProductNames.length; i++) {
 
@@ -84,7 +82,7 @@ $(window).on('load', function () {
                                         $(e.target).removeClass('btn-warning');
                                         $(e.target).addClass('btn-danger');
                                         e.target.textContent = response;
-                                        e.target.style.cursor = 'not-allowed'
+                                        e.target.style.cursor = 'not-allowed';
 
                                     },
                                     error: function (response) {
@@ -114,7 +112,7 @@ $(window).on('load', function () {
                 document.getElementById('table').style.display = 'none';
                 document.getElementById('continue').style.display = 'none';
                 var msg = $('#msg');
-                msg.text(response);
+                msg.text(data);
                 msg.css('display', 'block');
             }
 

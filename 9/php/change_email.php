@@ -10,29 +10,43 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_SESSION['user_id'])) {
     $newEmail = validate($_POST['email']);
     $userID = $_SESSION['user_id'];
 
-    $query = " SELECT * FROM users WHERE email = '$newEmail'";
+    $query = " SELECT * FROM users WHERE email = ?";
 
-    $result = mysqli_query($dbc, $query);
+    if ($stmt = $dbc->prepare($query)) {
 
-    if (mysqli_num_rows($result) > 0) {
+        $stmt->bind_param("s", $newEmail);
+        $stmt->execute();
+        $stmt->store_result();
 
-        echo 'Email already in use';
-    } else {
-        $select = " SELECT * FROM users WHERE user_id = '$userID' ";
+        if ($stmt->num_rows > 0) {
 
-        $result = mysqli_query($dbc, $select);
+            echo 'Email already in use';
 
-        if (mysqli_num_rows($result) > 0) {
-
-            $update = "UPDATE users SET email = '$newEmail' WHERE user_id = '$userID'";
-
-            if (mysqli_query($dbc, $update)) {
-                echo 'Email successfully changed';
-            } else {
-                echo 'Error changing email';
-            }
         } else {
-            echo 'No such user';
+
+            $select = " SELECT * FROM users WHERE user_id = '$userID' ";
+            $stmt = $dbc->prepare($select);
+            $stmt->execute();
+            $stmt->store_result();
+
+            if ($stmt->num_rows > 0) {
+
+                $update = "UPDATE users SET email = ? WHERE user_id = '$userID'";
+                $stmt = $dbc->prepare($update);
+                $stmt->bind_param("s", $newEmail);
+                $stmt->execute();
+
+                if ($dbc->affected_rows > 0) {
+                    echo 'Email successfully changed';
+                } else {
+                    echo 'Error changing email';
+                }
+
+            } else {
+
+                echo 'No such user';
+
+            }
         }
     }
 };
