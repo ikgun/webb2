@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
    $name = validate($_POST['name']);
    $email = validate($_POST['email']);
-   $password = md5(validate($_POST['password']));
+   $password = password_hash(validate($_POST['password']), PASSWORD_BCRYPT);
 
    $query = " SELECT * FROM users WHERE email = ?";
 
@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       } else {
 
          echo "Error signing up!";
-         
+
       }
    }
 };
