@@ -1,28 +1,29 @@
-var loginBtn = document.getElementById('login-btn');
-var signupBtn = document.getElementById('signup-btn');
-var cartBtn = document.getElementById('cart-btn');
-var logoutBtn = document.getElementById('logout-btn');
+import { headerLoggedIn, headerLoggedOut } from "./exports.js";
 
-var accountBtn = document.getElementById('account-btn');
+$(window).on('load', function () {
 
-loginBtn.addEventListener('click', function () {
-    window.location.href = '../html/login.html';
-});
+    $.ajax({
+        url: "../php/fetch_user_data.php",
+        type: 'get',
+        success: function (response) {
 
-signupBtn.addEventListener('click', function () {
-    window.location.href = '../html/signup.html';
-});
+            if (response !== 'No user logged in') {
 
-cartBtn.addEventListener('click', function () {
-    window.location.href = '../html/cart.html';
-});
+                $('#header').append(headerLoggedIn);
 
-logoutBtn.addEventListener('click', function () {
-    window.location.href = '../php/logout.php';
-});
+            } else {
 
-accountBtn.addEventListener('click', function () {
-    window.location.href = '../html/account.html';
+                $('#header').append(headerLoggedOut);
+            }
+
+        },
+        error: function (response) {
+
+            console.log(response.responseText);
+
+        }
+    });
+
 });
 
 $(window).on('load', function () {
@@ -68,24 +69,32 @@ $(window).on('load', function () {
                     tdRemoveBtn.appendChild(removeBtn);
 
                     removeBtn.addEventListener('click', function (e) {
+                        
+                        alertify.defaults.theme.ok = "btn btn-success";
+                        alertify.defaults.theme.cancel = "btn btn-danger";
+                        alertify.confirm(
+                            'Remove item', 
+                            'Do you really want to remove item(s) from your cart?',
+                            function () {
+                                $.ajax({
+                                    url: "../php/remove_item.php?product_id=" + e.target.id,
+                                    type: 'post',
+                                    success: function (response) {
 
-                        $.ajax({
-                            url: "../php/remove_item.php?product_id=" + e.target.id,
-                            type: 'post',
-                            success: function (response) {
+                                        $(e.target).removeClass('btn-warning');
+                                        $(e.target).addClass('btn-danger');
+                                        e.target.textContent = response;
+                                        e.target.style.cursor = 'not-allowed'
 
-                                $(e.target).removeClass('btn-warning');
-                                $(e.target).addClass('btn-danger');
-                                e.target.textContent = response;
-                                e.target.style.cursor = 'not-allowed'
+                                    },
+                                    error: function (response) {
+
+                                        console.log('Error fetching data = ' + response.responseText);
+
+                                    }
+                                });
                                 
-                            },
-                            error: function (response) {
-
-                                console.log('Error fetching data = ' + response.responseText);
-
-                            }
-                        });
+                            },function () {});
 
                     });
 

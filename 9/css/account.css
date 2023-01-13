@@ -9,6 +9,10 @@
     text-transform: capitalize;
 }
 
+main{
+    min-height: 100vh;
+}
+
 #name-error-msg {
     margin: 10px 0;
     display: none;

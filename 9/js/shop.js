@@ -1,28 +1,29 @@
-var loginBtn = document.getElementById('login-btn');
-var signupBtn = document.getElementById('signup-btn');
-var cartBtn = document.getElementById('cart-btn');
-var logoutBtn = document.getElementById('logout-btn');
+import { headerLoggedIn, headerLoggedOut } from "./exports.js";
 
-var accountBtn = document.getElementById('account-btn');
+$(window).on('load', function () {
 
-loginBtn.addEventListener('click', function(){
-    window.location.href = '../html/login.html';
-});
+    $.ajax({
+        url: "../php/fetch_user_data.php",
+        type: 'get',
+        success: function (response) {
 
-signupBtn.addEventListener('click', function(){
-    window.location.href = '../html/signup.html';
-});
+            if (response !== 'No user logged in') {
 
-cartBtn.addEventListener('click', function(){
-    window.location.href = '../html/cart.html';
-});
+                $('#header').append(headerLoggedIn);
+                
+            } else {
+                
+                $('#header').append(headerLoggedOut);
+            }
 
-logoutBtn.addEventListener('click', function(){
-    window.location.href = '../php/logout.php';
-});
+        },
+        error: function (response) {
 
-accountBtn.addEventListener('click', function(){
-    window.location.href = '../html/account.html';
+            console.log(response.responseText);
+
+        }
+    });
+
 });
 
 $(window).on('load', function () {
@@ -75,6 +76,7 @@ $(window).on('load', function () {
                 productQty.style.padding = '5px 0px 5px 10px'
                 productQty.name = 'product-qty';
                 productQty.type = 'number';
+                productQty.min = 1;
                 productQty.value = '1';
                 productQty.className = 'mb-2';
 

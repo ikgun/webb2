@@ -8,3 +8,7 @@
 #welcome-user{
     text-transform: capitalize;
 }
+
+main{
+    min-height: 100vh;
+}
