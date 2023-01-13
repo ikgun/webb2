@@ -38,6 +38,7 @@ main{
 label.error {
     color: crimson;
     display: block;
+    text-align: start;
 }
 
 #change-name-form{

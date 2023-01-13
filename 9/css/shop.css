@@ -8,3 +8,8 @@
 main{
    min-height: 100vh;
 }
+
+label.error{
+   color: crimson;
+   text-align: start;
+}

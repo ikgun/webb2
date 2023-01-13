@@ -58,24 +58,6 @@ $('#delete-btn').click(function () {
             });
 
         }, function(){});
-
-    // if (confirm('Do you really want to delete your account?')) {
-    //     $.ajax({
-    //         url: "../php/delete_user.php",
-    //         type: 'post',
-    //         success: function (response) {
-
-    //             window.alert(response);
-    //             window.location.href = '../html/welcome.html';
-
-    //         },
-    //         error: function (response) {
-
-    //             console.log('Error fetching data = ' + response.responseText);
-
-    //         }
-    //     });
-    // }
 });
 
 $('#change-name-btn').click(function () {
@@ -146,5 +128,37 @@ $('#submit-email-btn').click(function (e) {
         });
     }
     return true;
+});
+
+$("#sub-form").validate();
+
+$('#submitBtn').click(function (e) {
+
+    if (document.getElementById('sub-form').checkValidity()) {
+
+        e.preventDefault();
+        $.ajax({
+            url: "../php/subscribe.php",
+            type: 'post',
+            data: $('#sub-form').serialize(),
+            success: function (response) {
+
+                $("#submitBtn").attr("disabled", true);
+
+                alertify.defaults.theme.ok = "btn btn-success";
+                alertify.alert(
+                    'Subscribe', response, function () { });
+
+            },
+            error: function (response) {
+
+                console.log('Error fetching data = ' + response.responseText);
+
+            }
+        });
+    }
+    return true;
+
+
 });
 

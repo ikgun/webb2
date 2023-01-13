@@ -138,6 +138,38 @@ $(window).on('load', function () {
 
 });
 
+$("#sub-form").validate();
+
+$('#submitBtn').click(function (e) {
+
+    if (document.getElementById('sub-form').checkValidity()) {
+
+        e.preventDefault();
+        $.ajax({
+            url: "../php/subscribe.php",
+            type: 'post',
+            data: $('#sub-form').serialize(),
+            success: function (response) {
+
+                $("#submitBtn").attr("disabled", true);
+
+                alertify.defaults.theme.ok = "btn btn-success";
+                alertify.alert(
+                    'Subscribe', response, function () { });
+
+            },
+            error: function (response) {
+
+                console.log('Error fetching data = ' + response.responseText);
+
+            }
+        });
+    }
+    return true;
+
+
+});
+
 
 
 
