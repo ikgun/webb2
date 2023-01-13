@@ -5,15 +5,17 @@ $(window).on('load', function () {
     $.ajax({
         url: "../php/fetch_user_data.php",
         type: 'get',
+        dataType: 'json',
         success: function (response) {
 
-            if (response !== 'No user logged in') {
+            if (response.userID !== null) {
 
                 $('header').append(headerLoggedIn);
 
-            } else {
+            } else if (response.userID == null){
 
                 $('header').append(headerLoggedOut);
+
             }
 
         },
@@ -82,7 +84,7 @@ $(window).on('load', function () {
                                         $(e.target).removeClass('btn-warning');
                                         $(e.target).addClass('btn-danger');
                                         e.target.textContent = response;
-                                        e.target.style.cursor = 'not-allowed';
+                                        e.target.disabled = 'true';
 
                                     },
                                     error: function (response) {

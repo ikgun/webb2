@@ -1,18 +1,20 @@
 <?php
 
-$count = file_get_contents("count.txt");
-$count++;
+//This program counts the visitors to the website
 
-$fp = fopen("count.txt", "w");
+$count = file_get_contents("count.txt"); //getting file contents and storing it to be able to update
+$count++; //increasing the count
 
-flock($fp, LOCK_EX);
+$fp = fopen("count.txt", "w"); //creating a file pointer to the file by opening it with write mode
 
-fwrite($fp, $count);
+flock($fp, LOCK_EX); //locking the file
 
-flock($fp, LOCK_UN);
+fwrite($fp, $count); //writing the new value to the file
 
-fclose($fp);
+flock($fp, LOCK_UN); // unlocking (we locked so there were no clashes from multiple visitors)
 
-header('Content-type: text/plain');
+fclose($fp); //closing file pointer
 
-echo $count;
+header('Content-type: text/plain'); //establishing content type so the content is correctly shown 
+
+echo $count; //showing the updated count on the website by echoing

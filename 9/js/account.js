@@ -5,21 +5,18 @@ $(window).on('load', function () {
     $.ajax({
         url: "../php/fetch_user_data.php",
         type: 'get',
+        dataType: 'json',
         success: function (response) {
 
-            var welcomeMsg = document.getElementById('welcome-user');
-
-            if (response !== 'No user logged in') {
+            if (response.userID !== null) {
 
                 $('header').append(headerLoggedIn);
-                var res = JSON.parse(response);
-                welcomeMsg.textContent = 'Hi, ' + res[0].userName + '!';
-                document.getElementById('user-email').textContent = res[0].userEmail;
+                document.getElementById('welcome-user').textContent = 'Hi, ' + response.userName + '!';
+                document.getElementById('user-email').textContent = response.userEmail;
 
-            } else {
+            } else if (response.userID == null){
 
                 $('header').append(headerLoggedOut);
-                welcomeMsg.textContent = 'Hi!';
 
             }
 
@@ -46,8 +43,10 @@ $('#delete-btn').click(function () {
                 type: 'post',
                 success: function (response) {
     
-                    window.alert(response);
-                    window.location.href = '../html/welcome.html';
+                    alertify.defaults.theme.ok = "btn btn-success";
+                alertify.alert(
+                    'Delete account', response, function () { });
+                    
     
                 },
                 error: function (response) {

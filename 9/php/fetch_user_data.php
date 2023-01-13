@@ -1,43 +1,31 @@
 <?php
 
-include('db_connection.php');
+//This program helps find the users data, if logged in logged in users data if not no data 
 
-session_start();
+include('db_connection.php'); //start database connection by including the file
 
-$query = "SELECT * FROM users";
+session_start(); //start the session to be able to get session values from SESSION aray
 
-$result = mysqli_query($dbc, $query);
+if(isset($_SESSION['user_id'])){ //if user is logged in
 
-if (mysqli_num_rows($result) > 0) {
+    $userID = $_SESSION['user_id'];
+    $query = "SELECT * FROM users WHERE user_id = '$userID'"; //find the user from db that has the unique id
+    $result = mysqli_query($dbc, $query);
+    $row = mysqli_fetch_assoc($result);
+    $userInfo = array( //store user information inside an array
+        "userID" => $row['user_id'],
+        "userName" => $row['name'],
+        "userEmail" => $row['email'],
+    );
+    
+}else{
 
-    while ($row = mysqli_fetch_assoc($result)) {
-
-        if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $row['user_id']) {
-
-            $userInfo = array(
-                "userID" => $row['user_id'],
-                "userName" => $row['name'],
-                "userEmail" => $row['email'],
-            );
-
-            $userArray[] = $userInfo;
-        }
-    }
-
-    global $userArray;
-
-    if ($userArray !== null) {
-
-        echo json_encode($userArray);
-
-    } else {
-
-        echo 'No user logged in';
-        
-    }
-
-} else {
-
-    echo "No user in database";
-
+    $userInfo = array( //if no user is logged in, there is no info
+        "userID" => null,
+        "userName" => null,
+        "userEmail" => null,
+    );
+    
 }
+
+echo json_encode($userInfo); //send the user data in JSON format

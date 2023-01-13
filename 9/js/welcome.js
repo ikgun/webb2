@@ -5,23 +5,20 @@ $(window).on('load', function () {
     $.ajax({
         url: "../php/fetch_user_data.php",
         type: 'get',
-        success: function (data) {
+        dataType: 'json',
+        success: function (response) {
 
-            var welcomeMsg = document.getElementById('welcome-user');
-
-            if (data !== 'No user in database' && data !== 'No user logged in') {
+            if (response.userID !== null) {
 
                 $('header').append(headerLoggedIn);
-                var response = JSON.parse(data);
-                welcomeMsg.textContent = 'Welcome, ' + response[0].userName + '!';
+                document.getElementById('welcome-user').textContent = 'Welcome, ' + response.userName + '!';
+                
 
-            } else {
+            } else if (response.userID == null){
 
                 $('header').append(headerLoggedOut);
-                welcomeMsg.textContent = 'Welcome!';
 
             }
-
 
         },
         error: function (response) {

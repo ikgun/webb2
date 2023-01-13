@@ -1,9 +1,12 @@
 <?php
 
+//This program outputs the user generated values with two different ways, post and get
+
 header("Content-type: text/plain");
 
-if (isset($_POST['post'])) {
+if (isset($_POST['post'])) { // if user clicks submit button which is sent by post method
 
+    //all values posted with the form are fetched from the POST array
     echo "hidden: ".$_POST['hidden'];
 
     if(strlen($_POST['text'])>0){
@@ -25,8 +28,9 @@ if (isset($_POST['post'])) {
     
     echo "\nselect: ".$_POST['select']."\nsubmit: ".$_POST['post'];
 
-}else if(isset($_GET['get'])){
+}else if(isset($_GET['get'])){  // if user clicks submit button which is sent by get method
 
+     //all values posted with the form are fetched from the GET array
     echo "hidden: ".$_GET['hidden'];
 
     if(strlen($_GET['text'])>0){
