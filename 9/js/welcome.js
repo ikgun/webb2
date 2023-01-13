@@ -8,13 +8,13 @@ $(window).on('load', function () {
         dataType: 'json',
         success: function (response) {
 
-            if (response.userID !== null) {
+            if (response.userID != null) {
 
                 $('header').append(headerLoggedIn);
                 document.getElementById('welcome-user').textContent = 'Welcome, ' + response.userName + '!';
                 
 
-            } else if (response.userID == null){
+            } else {
 
                 $('header').append(headerLoggedOut);
 

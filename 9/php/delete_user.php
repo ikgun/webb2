@@ -35,6 +35,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_SESSION['user_id'])) {  //if
         if (mysqli_affected_rows($dbc) > 0) { //if there are any changes in the db
 
             echo 'Account deleted successfully, you\'re being logged out'; //inform the user
+            session_unset(); //deleting all session keys and values
+            session_destroy(); //deleting the session
 
         } else {
 

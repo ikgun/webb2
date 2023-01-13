@@ -8,13 +8,13 @@ $(window).on('load', function () {
         dataType: 'json',
         success: function (response) {
 
-            if (response.userID !== null) {
+            if (response.userID != null) {
 
                 $('header').append(headerLoggedIn);
                 document.getElementById('welcome-user').textContent = 'Hi, ' + response.userName + '!';
                 document.getElementById('user-email').textContent = response.userEmail;
 
-            } else if (response.userID == null){
+            } else {
 
                 $('header').append(headerLoggedOut);
 
@@ -46,6 +46,12 @@ $('#delete-btn').click(function () {
                     alertify.defaults.theme.ok = "btn btn-success";
                 alertify.alert(
                     'Delete account', response, function () { });
+
+                    setTimeout(function() {
+
+                        window.location.href = '../html/welcome.html';
+                        
+                    }, 2000);
                     
     
                 },
