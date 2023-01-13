@@ -1,20 +1,22 @@
 <?php
 
-$html = file_get_contents("example.html");
+// this program outputs the visitor count value to html page by changing the data to print to the webpage on the server side
 
-$count = file_get_contents("count.txt");
-$count++;
+$html = file_get_contents("example.html"); //get the html pages content
 
-$html = str_replace('---$hits---', $count, $html);
+$count = file_get_contents("count.txt"); //get the value to be output from the file
+$count++;//increase the value
 
-$fp = fopen("count.txt", "w");
+$html = str_replace('---$hits---', $count, $html); //changing the string that has the specified string with the count value
 
-flock($fp, LOCK_EX);
+$fp = fopen("count.txt", "w"); //creating a file pointer to the text file with write mode
 
-fwrite($fp, $count);
+flock($fp, LOCK_EX); //locking the file before writing to it to prevent clashes when multiple users open the site
 
-flock($fp, LOCK_UN);
+fwrite($fp, $count); //writing the value to the text file
 
-fclose($fp);
+flock($fp, LOCK_UN); //unlocking after writing the value 
 
-echo $html;
+fclose($fp); //closing the file pointer
+
+echo $html; //echoing back the changed page

@@ -1,5 +1,7 @@
 <?php
 
+//this code snippet connects the db
+
 $dbuser = "root";
 $dbpass = "123";
 $dbname = "webb2";
