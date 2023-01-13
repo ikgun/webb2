@@ -17,16 +17,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') { //if user clicks login button and se
    $result = $stmt->get_result(); //getting result set from the executed query
 
    if (mysqli_num_rows($result) > 0) { //if there is any user with the email
+      $row = mysqli_fetch_assoc($result); //we fetch the user data
 
       /*If the user with email is found, we go to the second check which is the password. We verify the password
-      by comparing it with its hash code which is returned by the function password_hash. */
+      by comparing it with its hash code which is returned by the data from the db. */
 
-      if(password_verify(validate($_POST['password']), password_hash(validate($_POST['password']), PASSWORD_BCRYPT))){
+      if(password_verify(validate($_POST['password']), $row['password'])){
 
          //if the password is verified we fetch the data about the user
-         $row = mysqli_fetch_assoc($result);
-
+         
          $userID = $row['user_id'];
+
+         //assign session variables
    
          $_SESSION['user_id'] = $userID;
          $_SESSION['user_name'] = $row['name'];
